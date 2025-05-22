@@ -2,17 +2,15 @@
 import { ref, onMounted } from 'vue'
 import Dashboard from './components/Dashboard.vue'
 import HardwareMonitor from './components/HardwareMonitor.vue'
-import Schedule from './components/Schedule.vue'
-import ScheduleDetails from './components/ScheduleDetails.vue'
+import Config from './components/Config.vue' // Novo componente de configuração
 import MonitorHistory from './components/MonitorHistory.vue'
 
 const aba = ref('dashboard')
 const abas = [
   { key: 'dashboard', label: 'Dashboard', icon: 'mdi-view-dashboard' },
   { key: 'monitor', label: 'Monitoramento', icon: 'mdi-monitor' },
-  { key: 'agendar', label: 'Agendar Tarefa', icon: 'mdi-calendar-plus' },
-  { key: 'agendamentos', label: 'Histórico de Agendamentos', icon: 'mdi-calendar-clock' },
-  { key: 'historico', label: 'Histórico de Monitoramento', icon: 'mdi-history' }
+  { key: 'historico', label: 'Histórico de Monitoramento', icon: 'mdi-history' },
+  { key: 'config', label: 'Configurações', icon: 'mdi-cog' }
 ]
 
 onMounted(() => {
@@ -51,16 +49,10 @@ onMounted(() => {
       </nav>
       <!-- Área de conteúdo principal -->
       <div id="main-content" class="rounded-xl shadow-lg p-0 min-h-[500px] h-[60vh] transition-colors duration-300 bg-gray-800 text-gray-100">
-        <!-- Componente Dashboard -->
         <Dashboard v-if="aba === 'dashboard'" />
-        <!-- Componente Monitoramento -->
         <HardwareMonitor v-else-if="aba === 'monitor'" />
-        <!-- Componente Agendamento -->
-        <Schedule v-else-if="aba === 'agendar'" />
-        <!-- Componente Histórico de Agendamentos -->
-        <ScheduleDetails v-else-if="aba === 'agendamentos'" />
-        <!-- Componente Histórico de Monitoramento -->
         <MonitorHistory v-else-if="aba === 'historico'" />
+        <Config v-else-if="aba === 'config'" />
       </div>
       <!-- Rodapé -->
       <footer id="footer" class="mt-10 text-center text-xs text-gray-600">
