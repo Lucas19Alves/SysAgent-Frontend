@@ -6,6 +6,7 @@ const cpu = ref(null)
 const memory = ref(null)
 const disk = ref(null)
 
+// Consulta dados de hardware
 const fetchData = async () => {
   cpu.value = (await axios.get('/collectData/info/cpu')).data
   memory.value = (await axios.get('/collectData/info/memory')).data
@@ -16,13 +17,14 @@ onMounted(fetchData)
 </script>
 
 <template>
-  <div class="h-full w-full flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow p-8">
-    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100 flex items-center gap-2">
+  <div id="hardware-monitor" class="h-full w-full flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow p-8">
+    <h2 id="hardware-title" class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100 flex items-center gap-2">
       <span class="mdi mdi-monitor text-blue-500 text-2xl"></span>
       Monitoramento de Hardware
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 flex-1">
-      <div class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 flex flex-col">
+      <!-- Bloco CPU -->
+      <div id="monitor-cpu" class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 flex flex-col">
         <h3 class="font-semibold mb-2 text-blue-600 dark:text-blue-300">CPU</h3>
         <div v-if="cpu">
           <div class="text-lg">Uso: <span class="font-bold">{{ cpu.usage }}%</span></div>
@@ -30,7 +32,8 @@ onMounted(fetchData)
         </div>
         <div v-else class="text-gray-400">Carregando...</div>
       </div>
-      <div class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 flex flex-col">
+      <!-- Bloco Memória -->
+      <div id="monitor-memoria" class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 flex flex-col">
         <h3 class="font-semibold mb-2 text-purple-600 dark:text-purple-300">Memória</h3>
         <div v-if="memory">
           <div>Total: {{ memory.total }} MB</div>
@@ -39,7 +42,8 @@ onMounted(fetchData)
         </div>
         <div v-else class="text-gray-400">Carregando...</div>
       </div>
-      <div class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 flex flex-col">
+      <!-- Bloco Disco -->
+      <div id="monitor-disco" class="p-6 border border-gray-200 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-900 flex flex-col">
         <h3 class="font-semibold mb-2 text-pink-600 dark:text-pink-300">Disco</h3>
         <div v-if="disk">
           <div>Total: {{ disk.total }} GB</div>

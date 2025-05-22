@@ -6,6 +6,7 @@ const historico = ref([])
 const loading = ref(false)
 const erro = ref(null)
 
+// Consulta histórico de monitoramento
 const fetchHistory = async () => {
   loading.value = true
   erro.value = null
@@ -22,8 +23,8 @@ onMounted(fetchHistory)
 </script>
 
 <template>
-  <div class="h-full w-full flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow p-8">
-    <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100 flex items-center gap-2">
+  <div id="monitor-history" class="h-full w-full flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow p-8">
+    <h2 id="monitor-history-title" class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100 flex items-center gap-2">
       <span class="mdi mdi-history text-blue-500 text-2xl"></span>
       Histórico de Monitoramento
     </h2>
@@ -31,7 +32,7 @@ onMounted(fetchHistory)
       <div v-if="loading" class="flex-1 flex items-center justify-center text-gray-500 dark:text-gray-400">Carregando...</div>
       <div v-else-if="erro" class="flex-1 flex items-center justify-center text-red-600 dark:text-red-400">{{ erro }}</div>
       <div v-else class="flex-1 overflow-auto">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <table id="tabela-monitoramento" class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead>
             <tr>
               <th class="px-4 py-2 text-left text-gray-700 dark:text-gray-200">Data/Hora</th>
